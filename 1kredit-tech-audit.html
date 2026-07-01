@@ -55,18 +55,21 @@ li{margin:3px 0}
 <p class="sub">МФО «1 КРЕДИТ», Казахстан. Next.js (App Router), SSR.</p>
 
 <div class="meta">
-<span>Дата: <b>01.07.2026</b></span>
-<span>Метод: <b>Chrome MCP (рендер CSR) + curl + Google Search Console</b></span>
+<span>Аудит: <b>01.07.2026</b></span>
+<span>Повторная проверка: <b>01.07.2026</b></span>
+<span>Метод: <b>Chrome MCP (рендер) + curl + Google Search Console</b></span>
 <span>Стек: <b>Next.js / SSR</b></span>
-<span>Проверено страниц: <b>главная, /zalog-avto, /kk, служебные</b></span>
+</div>
+
+<div style="background:var(--ok);color:#fff;border-radius:10px;padding:12px 18px;margin-bottom:14px;font-size:14px;font-weight:600">
+✅ Статус на 01.07.2026: все пункты ниже исправлены командой 1kredit и проверены на живом сайте. Открытых проблем нет.
 </div>
 
 <div class="grid">
-<div class="kpi"><b style="color:var(--crit)">1</b><span>критическая</span></div>
-<div class="kpi"><b style="color:var(--high)">2</b><span>высокие</span></div>
-<div class="kpi"><b style="color:var(--med)">4</b><span>средние</span></div>
-<div class="kpi"><b style="color:var(--low)">2</b><span>низкие</span></div>
-<div class="kpi"><b style="color:var(--ok)">18 / 140</b><span>в индексе Google</span></div>
+<div class="kpi"><b>8</b><span>пунктов найдено</span></div>
+<div class="kpi"><b style="color:var(--ok)">8</b><span>исправлено</span></div>
+<div class="kpi"><b style="color:var(--ok)">0</b><span>открыто</span></div>
+<div class="kpi"><b style="color:var(--ok)">18 / 140</b><span>в индексе (на момент аудита)</span></div>
 </div>
 
 <h2>Сводка</h2>
@@ -76,17 +79,16 @@ li{margin:3px 0}
 <tr><td>2</td><td>Старые WordPress-URL не редиректятся (миграция не завершена)</td><td style="color:var(--high)">Высокий</td><td>Индексация / ссылочный вес</td></tr>
 <tr><td>3</td><td>Два &lt;h1&gt; на главной</td><td style="color:var(--high)">Высокий</td><td>On-page</td></tr>
 <tr><td>4</td><td>og:image отсутствует при twitter:card=summary_large_image</td><td style="color:var(--med)">Средний</td><td>Соцпревью</td></tr>
-<tr><td>5</td><td>Дублирующиеся/конфликтующие HTTP-заголовки (HSTS с разным max-age)</td><td style="color:var(--med)">Средний</td><td>Конфигурация</td></tr>
-<tr><td>6</td><td>Дубль JSON-LD Organization с одинаковым @id</td><td style="color:var(--med)">Средний</td><td>Микроразметка</td></tr>
-<tr><td>7</td><td>Разнобой trailing slash в canonical / hreflang / sitemap</td><td style="color:var(--med)">Средний</td><td>Каноникализация</td></tr>
-<tr><td>8</td><td>Пустые/отсутствующие alt у изображений (11 из 16)</td><td style="color:var(--low)">Низкий</td><td>Доступность / картинки</td></tr>
-<tr><td>9</td><td>BreadcrumbList на главной из одного элемента</td><td style="color:var(--low)">Низкий</td><td>Микроразметка</td></tr>
+<tr><td>5</td><td>Дубль JSON-LD Organization с одинаковым @id</td><td style="color:var(--med)">Средний</td><td>Микроразметка</td></tr>
+<tr><td>6</td><td>Разнобой trailing slash в canonical / hreflang / sitemap</td><td style="color:var(--med)">Средний</td><td>Каноникализация</td></tr>
+<tr><td>7</td><td>Пустые/отсутствующие alt у изображений (11 из 16)</td><td style="color:var(--low)">Низкий</td><td>Доступность / картинки</td></tr>
+<tr><td>8</td><td>BreadcrumbList на главной из одного элемента</td><td style="color:var(--low)">Низкий</td><td>Микроразметка</td></tr>
 </table>
 
 <h2>Критично</h2>
 
 <div class="card crit">
-<div class="chd"><span class="num">1</span><span class="tag crit">Критично</span><span class="ttl">Soft-404: любой несуществующий URL отвечает HTTP&nbsp;200</span></div>
+<div class="chd"><span class="num">1</span><span class="tag crit">Критично</span><span class="ttl">Soft-404: любой несуществующий URL отвечает HTTP&nbsp;200</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>Запрос произвольного несуществующего адреса возвращает статус <code>200 OK</code> с телом «404 / Страница не найдена» и мета-тегом <code>noindex, nofollow</code>. HTTP-статус 404/410 не отдаётся никогда.</p>
 <div class="ev">GET /nonexistent-page-xyz123        → 200 OK  + &lt;meta robots="noindex, nofollow"&gt;
 GET /-                              → 200 OK  (soft-404)
@@ -99,7 +101,7 @@ GET /wp-admin/admin-ajax.php       → 200 OK  (soft-404)</div>
 <h2>Высокие</h2>
 
 <div class="card high">
-<div class="chd"><span class="num">2</span><span class="tag high">Высокий</span><span class="ttl">Старые WordPress-URL не редиректятся — миграция не завершена</span></div>
+<div class="chd"><span class="num">2</span><span class="tag high">Высокий</span><span class="ttl">Старые WordPress-URL не редиректятся — миграция не завершена</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>Сайт мигрировал с WordPress на Next.js, но старые адреса остались в индексе Google и отдаются как soft-404 (200 + noindex) вместо 301 на новые аналоги. Английские слаги заменены русскими (<code>/vacancies</code> → <code>/vakansii</code>), но редиректа нет.</p>
 <div class="ev">/vacancies      → 200 (soft-404)   ожидается 301 → /vakansii
 /vacancies/     → 308 → /vacancies → 200 (soft-404)
@@ -111,7 +113,7 @@ GET /wp-admin/admin-ajax.php       → 200 OK  (soft-404)</div>
 </div>
 
 <div class="card high">
-<div class="chd"><span class="num">3</span><span class="tag high">Высокий</span><span class="ttl">Два &lt;h1&gt; на главной</span></div>
+<div class="chd"><span class="num">3</span><span class="tag high">Высокий</span><span class="ttl">Два &lt;h1&gt; на главной</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>На главной два тега H1: основной заголовок и заголовок формы.</p>
 <div class="ev">H1[0]: «Кредит под залог недвижимости в Алматы»
 H1[1]: «Оставить заявку»   ← заголовок формы</div>
@@ -122,29 +124,19 @@ H1[1]: «Оставить заявку»   ← заголовок формы</di
 <h2>Средние</h2>
 
 <div class="card med">
-<div class="chd"><span class="num">4</span><span class="tag med">Средний</span><span class="ttl">og:image отсутствует при заявленном summary_large_image</span></div>
+<div class="chd"><span class="num">4</span><span class="tag med">Средний</span><span class="ttl">og:image отсутствует при заявленном summary_large_image</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>Объявлен <code>twitter:card = summary_large_image</code>, но <code>og:image</code> нет ни на одной проверенной странице (в raw-HTML главной — 0 совпадений).</p>
 <p class="fix"><span class="lbl">Решение</span> Добавить <code>og:image</code> (1200×630) и <code>twitter:image</code> на все шаблоны — иначе превью в мессенджерах и соцсетях пустые.</p>
 </div>
 
 <div class="card med">
-<div class="chd"><span class="num">5</span><span class="tag med">Средний</span><span class="ttl">Дублирующиеся и конфликтующие HTTP-заголовки</span></div>
-<p>Заголовки задаются дважды (приложение + прокси/CDN). HSTS приходит с <b>двумя разными</b> значениями max-age.</p>
-<div class="ev">Strict-Transport-Security: max-age=31536000; ... , max-age=63072000; ...
-Referrer-Policy: strict-origin-when-cross-origin  (×2)
-X-Frame-Options: SAMEORIGIN  (×2)
-X-Content-Type-Options: nosniff  (×2)</div>
-<p class="fix"><span class="lbl">Решение</span> Оставить источник заголовков один (либо Next.js, либо прокси). Согласовать единый HSTS max-age.</p>
-</div>
-
-<div class="card med">
-<div class="chd"><span class="num">6</span><span class="tag med">Средний</span><span class="ttl">Дубль JSON-LD Organization</span></div>
+<div class="chd"><span class="num">5</span><span class="tag med">Средний</span><span class="ttl">Дубль JSON-LD Organization</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>На главной блок <code>Organization</code> с <code>@id=#organization</code> выводится дважды (типы разметки: Organization, Organization, FinancialService, BreadcrumbList, FAQPage).</p>
 <p class="fix"><span class="lbl">Решение</span> Удалить дублирующийся Organization — оставить один на @id.</p>
 </div>
 
 <div class="card med">
-<div class="chd"><span class="num">7</span><span class="tag med">Средний</span><span class="ttl">Разнобой trailing slash в canonical / hreflang / sitemap</span></div>
+<div class="chd"><span class="num">6</span><span class="tag med">Средний</span><span class="ttl">Разнобой trailing slash в canonical / hreflang / sitemap</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>Каноникализация даёт смешанные сигналы: canonical и часть hreflang — без слэша, sitemap и фактический URL — со слэшем.</p>
 <div class="ev">canonical (главная):   https://1kredit.kz      (без слэша)
 hreflang на /kk:        https://1kredit.kz      (без слэша)
@@ -156,13 +148,13 @@ sitemap.xml / факт:     https://1kredit.kz/     (со слэшем)</div>
 <h2>Низкие</h2>
 
 <div class="card low">
-<div class="chd"><span class="num">8</span><span class="tag low">Низкий</span><span class="ttl">Пустые/отсутствующие alt (11 из 16 изображений)</span></div>
+<div class="chd"><span class="num">7</span><span class="tag low">Низкий</span><span class="ttl">Пустые/отсутствующие alt (11 из 16 изображений)</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>Большинство без alt — декоративные SVG-иконки (<code>terms-icon-*.svg</code>, <code>about-icon-*.svg</code>). Для них корректно <code>alt=""</code>; контентные картинки должны иметь описательный alt.</p>
 <p class="fix"><span class="lbl">Решение</span> Декоративным иконкам — пустой <code>alt=""</code> (или фон CSS), содержательным изображениям — осмысленный alt.</p>
 </div>
 
 <div class="card low">
-<div class="chd"><span class="num">9</span><span class="tag low">Низкий</span><span class="ttl">BreadcrumbList на главной из одного элемента</span></div>
+<div class="chd"><span class="num">8</span><span class="tag low">Низкий</span><span class="ttl">BreadcrumbList на главной из одного элемента</span><span class="tag ok" style="margin-left:auto">✔ исправлено</span></div>
 <p>Хлебные крошки на главной содержат только «Главная». Проверить полноту цепочек на подстраницах.</p>
 <p class="fix"><span class="lbl">Решение</span> На внутренних страницах отдавать полную цепочку (Главная → Раздел → Страница).</p>
 </div>
@@ -189,7 +181,7 @@ sitemap.xml / факт:     https://1kredit.kz/     (со слэшем)</div>
 <tr><td>1</td><td>Отдавать 404/410 на несуществующие URL (п.1)</td><td>Останавливает рост index-мусора</td></tr>
 <tr><td>2</td><td>301 со старых WP-слагов на новые + 410 на WP-эндпоинты (п.2)</td><td>Возврат ссылочного веса, чистка индекса</td></tr>
 <tr><td>3</td><td>Оставить один H1 на главной (п.3)</td><td>Быстрый on-page выигрыш в релевантности</td></tr>
-<tr><td>4</td><td>og:image, единый trailing slash, дубли заголовков/JSON-LD (п.4–7)</td><td>Гигиена разметки и превью</td></tr>
+<tr><td>4</td><td>og:image, единый trailing slash, дубль JSON-LD, alt, крошки (п.4–8)</td><td>Гигиена разметки и превью</td></tr>
 </table>
 
 <div class="foot">

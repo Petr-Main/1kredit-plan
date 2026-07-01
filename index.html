@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1 КРЕДИТ — Прогресс по плану</title>
+<style>
+  :root{
+    --ink:#1a1d21; --muted:#6b7178; --line:#e4e6e9; --bg:#f5f6f8;
+    --card:#ffffff;
+    --green:#2f6f4f; --green-bg:#e7f1ec; --green-br:#c4ddce;
+    --amber:#b06a1f; --amber-bg:#f6ecdd; --amber-br:#e6d0ad;
+    --red:#a8423a; --red-bg:#f5e4e2; --red-br:#e6c3bd;
+    --blue:#33617f; --blue-bg:#e8f0f6; --blue-br:#bcd4e4;
+    --slate:#4a5560; --slate-bg:#eceef1; --slate-br:#d3d8de;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+  .topbar{max-width:1180px;margin:0 auto;padding:22px 22px 8px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:18px}
+  h1{font-size:26px;font-weight:750;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:13.5px;margin-top:6px}
+
+  .legend{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 18px;margin-bottom:10px;font-size:12.5px}
+  .legend .row{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+  .legend b{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+  .ldot{display:inline-flex;align-items:center;gap:7px}
+  .ldot i{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  .summary{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:14px 0 6px;font-size:13px}
+  .summary h3{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px}
+  .chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:13px}
+  .chain .pt{padding:4px 10px;border-radius:6px;background:#fafbfc;border:1px solid var(--line);white-space:nowrap}
+  .chain .pt.done{background:var(--green-bg);border-color:var(--green-br);color:var(--green)}
+  .chain .pt.partial{background:var(--amber-bg);border-color:var(--amber-br);color:var(--amber)}
+  .chain .pt.now{background:var(--red-bg);border-color:var(--red-br);color:var(--red);font-weight:700}
+  .chain .pt.todo{background:#fafbfc;border-color:var(--line);color:var(--muted)}
+  .chain .sep{color:#cdd2d8;font-weight:600}
+
+  .constraints{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 18px;margin:10px 0 6px;font-size:12.8px}
+  .constraints h3{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px}
+  .constraints ul{list-style:none;display:grid;gap:5px}
+  .constraints li{display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start}
+  .constraints li .mk{color:var(--blue);font-weight:700}
+
+  .boards{display:flex;gap:30px;overflow-x:auto;padding:14px 22px 50px;align-items:flex-start;justify-content:center}
+  .board{flex:0 0 auto;width:820px;
+    border:1px solid var(--line);border-radius:14px;background:var(--bg);padding:16px 18px 22px}
+  .board.seo{border-color:var(--green-br);box-shadow:0 0 0 3px var(--green-bg)}
+  .board-title{display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:6px;border-bottom:2px solid var(--ink)}
+  .board-title .badge{font-size:11px;font-weight:750;letter-spacing:.05em;color:#fff;padding:4px 11px;border-radius:7px;text-transform:uppercase}
+  .board-title h2.bt{font-size:19px;font-weight:750;letter-spacing:-.01em}
+  .board-title .who{margin-left:auto;font-size:12px;color:var(--muted)}
+  .seo .badge{background:var(--green)}
+
+  .stage{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;
+    border-left:5px solid var(--slate);padding:14px 18px 14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .stage .head{display:flex;align-items:center;gap:11px;margin-bottom:3px;flex-wrap:wrap}
+  .stage .num{font-size:11.5px;font-weight:750;letter-spacing:.03em;color:#fff;background:var(--slate);
+    border-radius:6px;padding:3px 9px;white-space:nowrap}
+  .stage h2{font-size:16px;font-weight:700;letter-spacing:-.01em}
+  .stage .status{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid;text-transform:uppercase;letter-spacing:.04em;margin-left:auto}
+  .stage .status.done{color:var(--green);border-color:var(--green-br);background:var(--green-bg)}
+  .stage .status.partial{color:var(--amber);border-color:var(--amber-br);background:var(--amber-bg)}
+  .stage .status.now{color:var(--red);border-color:var(--red-br);background:var(--red-bg)}
+  .stage .status.todo{color:var(--muted);border-color:var(--line);background:#fafbfc}
+  .stage .goal{font-size:12.5px;color:var(--muted);margin:5px 0 10px}
+
+  .done-bd{border-left-color:var(--green)} .done-bd .num{background:var(--green)}
+  .partial-bd{border-left-color:var(--amber)} .partial-bd .num{background:var(--amber)}
+  .now-bd{border-left-color:var(--red)} .now-bd .num{background:var(--red)}
+  .todo-bd{border-left-color:var(--slate)} .todo-bd .num{background:var(--slate)}
+
+  ul.facts{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+  ul.facts li{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:13px;align-items:start}
+  ul.facts li .mk{font-weight:700;color:var(--muted);padding-top:1px;font-variant-numeric:tabular-nums}
+  ul.facts li.ok .mk{color:var(--green)}
+  ul.facts li.no .mk{color:var(--red)}
+  ul.facts li.wait .mk{color:var(--amber)}
+  ul.facts li.note .mk{color:var(--muted)}
+  ul.facts li b{font-weight:650}
+  ul.facts li code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:11.5px;color:var(--blue);background:#eef1f3;padding:1px 5px;border-radius:3px}
+  ul.facts li a{color:var(--blue);text-decoration:none;border-bottom:1px dashed var(--blue-br)}
+  ul.facts li a:hover{border-bottom-style:solid}
+
+  .conn{display:flex;justify-content:center;align-items:center;height:24px;position:relative}
+  .conn:before{content:"";width:2px;height:100%;background:#cdd2d8}
+  .conn .lbl{position:absolute;background:var(--bg);padding:0 10px;font-size:11px;color:var(--muted);font-weight:600}
+
+  .vstack{display:grid;gap:0}
+
+  footer{max-width:1180px;margin:0 auto;padding:0 22px 32px;font-size:12px;color:var(--muted)}
+  footer .ftrline{border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<header>
+<h1>1 КРЕДИТ — Прогресс по плану</h1>
+<div class="sub">МФО «1 КРЕДИТ», Казахстан · 1kredit.kz · дорожная карта, 8 этапов · снимок на 2026-07-01</div>
+</header>
+
+<div class="legend">
+<div class="row">
+<b>Статусы</b>
+<span class="ldot"><i style="background:var(--green)"></i>готово</span>
+<span class="ldot"><i style="background:var(--amber)"></i>частично / в работе</span>
+<span class="ldot"><i style="background:var(--red)"></i>сейчас узкое место</span>
+<span class="ldot"><i style="background:var(--slate)"></i>не начато</span>
+</div>
+</div>
+
+<div class="summary">
+<h3>Маршрут</h3>
+<div class="chain">
+<span class="pt done">Точка А</span>
+<span class="sep">→</span>
+<span class="pt done">1 · Ядро</span>
+<span class="sep">→</span>
+<span class="pt done">2 · Техаудит</span>
+<span class="sep">→</span>
+<span class="pt now">3 · Внедрение правок</span>
+<span class="sep">→</span>
+<span class="pt todo">4 · Оптимизация страниц</span>
+<span class="sep">→</span>
+<span class="pt todo">5 · Конкуренты</span>
+<span class="sep">→</span>
+<span class="pt todo">6 · Блог</span>
+<span class="sep">→</span>
+<span class="pt todo">7 · Линкбилдинг</span>
+<span class="sep">→</span>
+<span class="pt partial">8 · Мониторинг</span>
+</div>
+</div>
+
+</div>
+
+
+<div class="boards">
+
+<!-- ============================ SEO ============================ -->
+<div class="board seo">
+<div class="board-title">
+<span class="badge">SEO</span>
+<h2 class="bt">Поисковая оптимизация</h2>
+<span class="who">исполнитель: Bankai · правки: команда 1kredit</span>
+</div>
+
+<div class="vstack">
+
+<div class="conn" style="height:14px"></div>
+
+<!-- ЭТАП 1 -->
+<div class="stage done-bd">
+<div class="head">
+<span class="num">ЭТАП 1</span><h2>Семантическое ядро</h2>
+<span class="status done">готово</span>
+</div>
+<div class="goal">Единое кластеризованное ядро на основе поисковой выдачи Google.KZ.</div>
+<ul class="facts">
+<li class="ok"><span class="mk">✓</span><div><b>301 запрос, 6 кластеров.</b> Объединены три версии ядра (v1/v2/v3): чистка по частотности, склейка близких форм, кластеризация по интенту. Минус-слова («беззалоговый», «без залога») — вынесены.</div></li>
+<li class="ok"><span class="mk">✓</span><div>Каждому кластеру назначен <b>целевой URL</b>: <code>/zalog-avto</code>, <code>/zalog-nedvizhimosti</code>, <code>/kredit-dlya-ip</code>, <code>/refinansirovanie</code>, <code>/uregulirovanie-zadolzhennosti</code>, <code>/</code> (общий залог).</div></li>
+<li class="ok"><span class="mk">✓</span><div>Разметка интента: коммерческий / гео / транзакционный / информационный / спорный — размечен каждый запрос.</div></li>
+<li class="ok"><span class="mk">✓</span><div>Артефакт: <a href="1kredit-semantic-core-merged.xlsx">1kredit-semantic-core-merged.xlsx</a> (лист «ядро» + «Минус-слова»).</div></li>
+</ul>
+</div>
+
+<div class="conn"><span class="lbl">ядро → аудит</span></div>
+
+<!-- ЭТАП 2 -->
+<div class="stage done-bd">
+<div class="head">
+<span class="num">ЭТАП 2</span><h2>Технический аудит</h2>
+<span class="status done">готово</span>
+</div>
+<div class="goal">Найти технические ошибки, мешающие индексации и ранжированию.</div>
+<ul class="facts">
+<li class="ok"><span class="mk">✓</span><div><b>Каталог собран: 1 критичная, 2 высоких, 4 средних, 2 низких.</b> Аудит напрямую через Chrome (рендер страницы) + проверка серверных ответов + Google Search Console. У каждой ошибки — доказательство и решение.</div></li>
+<li class="ok"><span class="mk">✓</span><div>Ключевое: <b>soft-404</b> (несуществующие URL отдают 200 вместо 404/410); <b>незавершённая миграция с WordPress</b> — старые URL не редиректятся; два <code>&lt;h1&gt;</code> на главной; нет <code>og:image</code>; дубли HTTP-заголовков и JSON-LD; разнобой trailing slash.</div></li>
+<li class="ok"><span class="mk">✓</span><div>Сверено с GSC: <b>в индексе 18 из 140</b> URL (62 noindex + 50 «просканировано, но не проиндексировано» + 10 редиректов) — причины неиндексации совпадают с пунктами аудита.</div></li>
+<li class="ok"><span class="mk">✓</span><div>В норме (без правок): полевые <b>Core Web Vitals</b> — мобайл 10/10, HTTPS 10/10, SSR отдаёт контент, консоль чистая.</div></li>
+<li class="ok"><span class="mk">✓</span><div>Артефакт: <a href="1kredit-tech-audit.html">1kredit-tech-audit.html</a>.</div></li>
+</ul>
+</div>
+
+<div class="conn"><span class="lbl">аудит → внедрение (своими силами)</span></div>
+
+<!-- ЭТАП 3 -->
+<div class="stage now-bd">
+<div class="head">
+<span class="num">ЭТАП 3</span><h2>Внедрение технических правок</h2>
+<span class="status now">сейчас здесь</span>
+</div>
+<div class="goal">Закрыть ошибки аудита. Правки вносит команда 1kredit; отдельного ТЗ подрядчику нет.</div>
+<ul class="facts">
+<li class="no"><span class="mk">1</span><div><b>Приоритет-1 (индексация/ранжирование).</b> Отдавать <code>404/410</code> на несуществующие URL вместо 200; настроить <code>301</code> со старых WordPress-URL на новые (<code>/vacancies</code>→<code>/vakansii</code>, <code>/feedback</code>→<code>/kontakty</code>) и <code>410</code> на мёртвые эндпоинты (<code>/index.php</code>, <code>/wp-admin/*</code>); оставить один <code>&lt;h1&gt;</code> на главной.</div></li>
+<li class="no"><span class="mk">2</span><div><b>Приоритет-2 (гигиена разметки).</b> Добавить <code>og:image</code>/<code>twitter:image</code>; убрать дубли HTTP-заголовков (единый HSTS); удалить дубль JSON-LD <code>Organization</code>; привести canonical / hreflang / sitemap к единому trailing slash; alt у контентных картинок; полные хлебные крошки на подстраницах.</div></li>
+<li class="note"><span class="mk">•</span><div>Список старых URL для редиректов — <b>выгрузить из GSC</b> → Индексирование → «noindex» (62 URL, есть экспорт).</div></li>
+<li class="wait"><span class="mk">~</span><div>После каждого пакета правок — <b>переиндексация</b> затронутых URL в GSC (Проверка URL → Запросить индексирование).</div></li>
+</ul>
+</div>
+
+<div class="conn"><span class="lbl">чистый сайт → оптимизация под ядро</span></div>
+
+<!-- ЭТАП 4 -->
+<div class="stage todo-bd">
+<div class="head">
+<span class="num">ЭТАП 4</span><h2>Оптимизация существующих страниц</h2>
+<span class="status todo">не начат</span>
+</div>
+<div class="goal">Привести 6 коммерческих URL в соответствие с ядром. Новые посадочные не создаём.</div>
+<ul class="facts">
+<li class="wait"><span class="mk">~</span><div><b>Мета + контент.</b> Для каждого из 6 URL: <code>title</code>/<code>description</code>/<code>H1</code> без дублей бренда, покрытие ключей своего кластера в тексте, закрытие гео-запросов (Алматы, Астана, Шымкент…) в контенте.</div></li>
+<li class="wait"><span class="mk">~</span><div><b>Перелинковка.</b> Связать смежные продукты: залог авто ↔ недвижимость ↔ кредит ИП ↔ рефинансирование ↔ урегулирование задолженности.</div></li>
+<li class="note"><span class="mk">•</span><div><b>Демандо-гейт под ограничение.</b> Запросы без своей посадки закрываем <u>блоком на существующей странице</u> или <u>статьёй блога</u> (Этап 6) — <b>не</b> новой посадочной.</div></li>
+<li class="note"><span class="mk">•</span><div>После оптимизации — проверка индексации каждого URL в GSC; отсутствующие в индексе отправляем на переиндексацию.</div></li>
+</ul>
+</div>
+
+<div class="conn"><span class="lbl">страницы → чего им не хватает</span></div>
+
+<!-- ЭТАП 5 -->
+<div class="stage todo-bd">
+<div class="head">
+<span class="num">ЭТАП 5</span><h2>Анализ конкурентов</h2>
+<span class="status todo">не начат</span>
+</div>
+<div class="goal">Понять, чего не хватает нашим страницам, и собрать темы и доноров ссылок.</div>
+<ul class="facts">
+<li class="no"><span class="mk">✗</span><div><b>Разбор лидеров выдачи KZ</b> по приоритетным коммерческим запросам: структура, блоки, объём контента, разметка — что усилить на наших 6 страницах (вход в Этап 4).</div></li>
+<li class="no"><span class="mk">✗</span><div><b>Ссылочные профили конкурентов</b>: доноры, типы и анкоры ссылок → список площадок для линкбилдинга (Этап 7).</div></li>
+<li class="no"><span class="mk">✗</span><div><b>Темы, закрытые статьями</b> у конкурентов → пополняют контент-план блога (Этап 6).</div></li>
+<li class="note"><span class="mk">•</span><div>Начинать с самых частотных коммерческих кластеров: залог авто (12 100 «автокредит»), залог недвижимости, кредит для ИП.</div></li>
+</ul>
+</div>
+
+<div class="conn"><span class="lbl">разбор → темы и доноры</span></div>
+
+<!-- ЭТАП 6 -->
+<div class="stage todo-bd">
+<div class="head">
+<span class="num">ЭТАП 6</span><h2>Блог: информационные статьи</h2>
+<span class="status todo">не начат</span>
+</div>
+<div class="goal">Основной канал контент-роста. Забирает спрос, под который не делаем посадочные.</div>
+<ul class="facts">
+<li class="note"><span class="mk">•</span><div><b>Пул тем готов из ядра</b> — информационные и коммерческо-исследовательские запросы: «как взять кредит под залог недвижимости», «рефинансирование займов с просрочками», «отсрочка платежа по кредиту», «какой банк даёт кредит под залог авто», «самый выгодный кредит под залог недвижимости».</div></li>
+<li class="wait"><span class="mk">~</span><div><b>Каждая статья → перелинковка</b> на профильную коммерческую посадку (блог кормит <code>/zalog-*</code>, <code>/refinansirovanie</code>, <code>/uregulirovanie-zadolzhennosti</code>).</div></li>
+<li class="wait"><span class="mk">~</span><div><b>E-E-A-T.</b> МФО с лицензией — экспертность в тексте, автор и дата, ссылка на лицензию/регулятора (уже в разметке <code>Organization</code>). Тематика денег = YMYL, требования к достоверности выше.</div></li>
+<li class="note"><span class="mk">•</span><div>Методология статей — по внутреннему регламенту Bankai (<code>article-writing.md</code>): структура, объём по разделам, плотность ключей, формат вывода.</div></li>
+</ul>
+</div>
+
+<div class="conn"><span class="lbl">контент готов → наращиваем ссылочное</span></div>
+
+<!-- ЭТАП 7 -->
+<div class="stage todo-bd">
+<div class="head">
+<span class="num">ЭТАП 7</span><h2>Линкбилдинг</h2>
+<span class="status todo">не начат</span>
+</div>
+<div class="goal">Усилить приоритетные коммерческие URL и слабые страницы ссылочной массой.</div>
+<ul class="facts">
+<li class="no"><span class="mk">✗</span><div>Доноры — из анализа конкурентов (Этап 5) + профильные площадки KZ: финансовые каталоги, агрегаторы МФО, тематические порталы. Часть внешних упоминаний уже есть (prodengi.kz, moneypanda.kz, bank.kz — в разметке <code>sameAs</code>).</div></li>
+<li class="note"><span class="mk">•</span><div>Анкоры — под коммерческие кластеры; приоритет URL — по частотности и позициям из мониторинга (Этап 8).</div></li>
+</ul>
+</div>
+
+<div class="conn"><span class="lbl">→ цикл</span></div>
+
+<!-- ЭТАП 8 -->
+<div class="stage partial-bd">
+<div class="head">
+<span class="num">ЭТАП 8</span><h2>Мониторинг</h2>
+<span class="status partial">частично</span>
+</div>
+<div class="goal">Отслеживать позиции, трафик и индексацию — реагировать на изменения.</div>
+<ul class="facts">
+<li class="ok"><span class="mk">✓</span><div><b>GSC подключён</b> (ресурс <code>sc-domain:1kredit.kz</code>): эффективность, индексирование, Core Web Vitals, HTTPS.</div></li>
+<li class="wait"><span class="mk">~</span><div><b>Точка А (старт, 2026-07-01):</b> 1,35 тыс. кликов и 34,6 тыс. показов за 3 мес, средняя позиция 3,9, в индексе 18/140. Зафиксировать как базу для сравнения.</div></li>
+<li class="wait"><span class="mk">~</span><div>Трекинг позиций по продвигаемым URL — <b>ещё не запущен</b>.</div></li>
+<li class="note"><span class="mk">•</span><div>Контроль индексации после каждого пакета правок (Этап 3) и каждой статьи (Этап 6).</div></li>
+</ul>
+</div>
+
+</div><!-- vstack -->
+</div><!-- board -->
+
+</div><!-- boards -->
+
+<footer>
+<div class="ftrline">1 КРЕДИТ · снимок на 2026-07-01 · артефакты: семантическое ядро (301 запрос) · технический аудит (9 пунктов). Правки Этапа 3 вносит команда 1kredit.</div>
+</footer>
+
+</body>
+</html>

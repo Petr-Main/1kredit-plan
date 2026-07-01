@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Технический аудит — 1kredit.kz</title>
+<style>
+:root{--bg:#f6f7f9;--card:#ffffff;--line:#e3e6ea;--txt:#1a1d23;--mut:#5c6470;
+--crit:#d92022;--high:#c76a00;--med:#a88700;--low:#1667d1;--ok:#1a9d52;--acc:#1667d1;
+--codebg:#f3f4f6;--codetxt:#b5460a;--evbg:#f7f8fa;--evtxt:#3a4048}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:32px 20px 80px}
+h1{font-size:26px;margin:0 0 4px}
+.sub{color:var(--mut);margin:0 0 24px;font-size:14px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--mut);margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.meta b{color:var(--txt);font-weight:600}
+h2{font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px;font-weight:600}
+table.sum{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:14px}
+table.sum th,table.sum td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+table.sum th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+table.sum td:first-child{white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:16px 18px;margin:12px 0}
+.card.crit{border-left-color:var(--crit)}
+.card.high{border-left-color:var(--high)}
+.card.med{border-left-color:var(--med)}
+.card.low{border-left-color:var(--low)}
+.card.ok{border-left-color:var(--ok)}
+.chd{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.num{font-weight:700;color:var(--mut);font-size:13px;min-width:26px}
+.tag{font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 8px;border-radius:20px;text-transform:uppercase}
+.tag.crit{background:rgba(255,77,79,.15);color:var(--crit)}
+.tag.high{background:rgba(255,159,28,.15);color:var(--high)}
+.tag.med{background:rgba(255,210,31,.15);color:var(--med)}
+.tag.low{background:rgba(77,163,255,.15);color:var(--low)}
+.tag.ok{background:rgba(46,204,113,.15);color:var(--ok)}
+.ttl{font-weight:600;font-size:16px}
+.card p{margin:6px 0}
+.lbl{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+code{background:var(--codebg);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font:13px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--codetxt);word-break:break-all}
+.ev{background:var(--evbg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;font:12.5px/1.5 ui-monospace,Consolas,monospace;color:var(--evtxt);white-space:pre-wrap;word-break:break-word}
+ul{margin:6px 0 6px;padding-left:20px}
+li{margin:3px 0}
+.fix{color:#137a41}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:22px}
+.kpi span{color:var(--mut);font-size:12px}
+.foot{color:var(--mut);font-size:12px;margin-top:40px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Технический аудит — 1kredit.kz</h1>
+<p class="sub">МФО «1 КРЕДИТ», Казахстан. Next.js (App Router), SSR.</p>
+
+<div class="meta">
+<span>Дата: <b>01.07.2026</b></span>
+<span>Метод: <b>Chrome MCP (рендер CSR) + curl + Google Search Console</b></span>
+<span>Стек: <b>Next.js / SSR</b></span>
+<span>Проверено страниц: <b>главная, /zalog-avto, /kk, служебные</b></span>
+</div>
+
+<div class="grid">
+<div class="kpi"><b style="color:var(--crit)">1</b><span>критическая</span></div>
+<div class="kpi"><b style="color:var(--high)">2</b><span>высокие</span></div>
+<div class="kpi"><b style="color:var(--med)">4</b><span>средние</span></div>
+<div class="kpi"><b style="color:var(--low)">2</b><span>низкие</span></div>
+<div class="kpi"><b style="color:var(--ok)">18 / 140</b><span>в индексе Google</span></div>
+</div>
+
+<h2>Сводка</h2>
+<table class="sum">
+<tr><th>#</th><th>Проблема</th><th>Уровень</th><th>Область</th></tr>
+<tr><td>1</td><td>Soft-404: несуществующие и старые URL отдают HTTP 200</td><td style="color:var(--crit)">Критично</td><td>Индексация / crawl budget</td></tr>
+<tr><td>2</td><td>Старые WordPress-URL не редиректятся (миграция не завершена)</td><td style="color:var(--high)">Высокий</td><td>Индексация / ссылочный вес</td></tr>
+<tr><td>3</td><td>Два &lt;h1&gt; на главной</td><td style="color:var(--high)">Высокий</td><td>On-page</td></tr>
+<tr><td>4</td><td>og:image отсутствует при twitter:card=summary_large_image</td><td style="color:var(--med)">Средний</td><td>Соцпревью</td></tr>
+<tr><td>5</td><td>Дублирующиеся/конфликтующие HTTP-заголовки (HSTS с разным max-age)</td><td style="color:var(--med)">Средний</td><td>Конфигурация</td></tr>
+<tr><td>6</td><td>Дубль JSON-LD Organization с одинаковым @id</td><td style="color:var(--med)">Средний</td><td>Микроразметка</td></tr>
+<tr><td>7</td><td>Разнобой trailing slash в canonical / hreflang / sitemap</td><td style="color:var(--med)">Средний</td><td>Каноникализация</td></tr>
+<tr><td>8</td><td>Пустые/отсутствующие alt у изображений (11 из 16)</td><td style="color:var(--low)">Низкий</td><td>Доступность / картинки</td></tr>
+<tr><td>9</td><td>BreadcrumbList на главной из одного элемента</td><td style="color:var(--low)">Низкий</td><td>Микроразметка</td></tr>
+</table>
+
+<h2>Критично</h2>
+
+<div class="card crit">
+<div class="chd"><span class="num">1</span><span class="tag crit">Критично</span><span class="ttl">Soft-404: любой несуществующий URL отвечает HTTP&nbsp;200</span></div>
+<p>Запрос произвольного несуществующего адреса возвращает статус <code>200 OK</code> с телом «404 / Страница не найдена» и мета-тегом <code>noindex, nofollow</code>. HTTP-статус 404/410 не отдаётся никогда.</p>
+<div class="ev">GET /nonexistent-page-xyz123        → 200 OK  + &lt;meta robots="noindex, nofollow"&gt;
+GET /-                              → 200 OK  (soft-404)
+GET /index.php                     → 200 OK  (soft-404)
+GET /wp-admin/admin-ajax.php       → 200 OK  (soft-404)</div>
+<p><span class="lbl">Последствия</span> Google не отличает живые страницы от мусорных: тратится crawl budget, растёт число «не проиндексировано», в отчёте GSC уже <b>62 noindex</b> и <b>50 «просканировано, но не проиндексировано»</b>, тренд растёт. noindex мешает, но не заменяет корректный статус.</p>
+<p class="fix"><span class="lbl">Решение</span> Для реально несуществующих адресов возвращать <code>410 Gone</code> (или <code>404</code>) с реальным HTTP-статусом. В Next.js — вызывать <code>notFound()</code> так, чтобы ответ был со статусом 404, а не 200. Убрать выдачу 200 на неизвестные маршруты.</p>
+</div>
+
+<h2>Высокие</h2>
+
+<div class="card high">
+<div class="chd"><span class="num">2</span><span class="tag high">Высокий</span><span class="ttl">Старые WordPress-URL не редиректятся — миграция не завершена</span></div>
+<p>Сайт мигрировал с WordPress на Next.js, но старые адреса остались в индексе Google и отдаются как soft-404 (200 + noindex) вместо 301 на новые аналоги. Английские слаги заменены русскими (<code>/vacancies</code> → <code>/vakansii</code>), но редиректа нет.</p>
+<div class="ev">/vacancies      → 200 (soft-404)   ожидается 301 → /vakansii
+/vacancies/     → 308 → /vacancies → 200 (soft-404)
+/feedback       → 200 (soft-404)   ожидается 301 → /kontakty
+/submit-application, /index.php, /wp-admin/admin-ajax.php → 200 (soft-404) — 410
+/bank-otkazal-v-ipoteke-...-nedvizhimost (старый блог) → 200 (soft-404)</div>
+<p><span class="lbl">Последствия</span> Теряется ссылочный вес со старых URL (внешние ссылки WP-эпохи ведут в никуда), краул тратится на мёртвые адреса, каждый URL считается дважды (со слэшем и без).</p>
+<p class="fix"><span class="lbl">Решение</span> Настроить <b>301</b> со старых слагов на новые эквиваленты; чисто технические WP-эндпоинты (<code>/wp-admin/*</code>, <code>/index.php</code>, <code>/-</code>) — <b>410</b>. Список брать из GSC → Индексирование → noindex (62 URL, есть экспорт).</p>
+</div>
+
+<div class="card high">
+<div class="chd"><span class="num">3</span><span class="tag high">Высокий</span><span class="ttl">Два &lt;h1&gt; на главной</span></div>
+<p>На главной два тега H1: основной заголовок и заголовок формы.</p>
+<div class="ev">H1[0]: «Кредит под залог недвижимости в Алматы»
+H1[1]: «Оставить заявку»   ← заголовок формы</div>
+<p><span class="lbl">Последствия</span> Размывается главный тематический сигнал страницы. На подстраницах (/zalog-avto) корректно — один H1, значит проблема точечная.</p>
+<p class="fix"><span class="lbl">Решение</span> «Оставить заявку» перевести в <code>&lt;h2&gt;</code>/<code>&lt;p&gt;</code>, оставить один H1 на главной.</p>
+</div>
+
+<h2>Средние</h2>
+
+<div class="card med">
+<div class="chd"><span class="num">4</span><span class="tag med">Средний</span><span class="ttl">og:image отсутствует при заявленном summary_large_image</span></div>
+<p>Объявлен <code>twitter:card = summary_large_image</code>, но <code>og:image</code> нет ни на одной проверенной странице (в raw-HTML главной — 0 совпадений).</p>
+<p class="fix"><span class="lbl">Решение</span> Добавить <code>og:image</code> (1200×630) и <code>twitter:image</code> на все шаблоны — иначе превью в мессенджерах и соцсетях пустые.</p>
+</div>
+
+<div class="card med">
+<div class="chd"><span class="num">5</span><span class="tag med">Средний</span><span class="ttl">Дублирующиеся и конфликтующие HTTP-заголовки</span></div>
+<p>Заголовки задаются дважды (приложение + прокси/CDN). HSTS приходит с <b>двумя разными</b> значениями max-age.</p>
+<div class="ev">Strict-Transport-Security: max-age=31536000; ... , max-age=63072000; ...
+Referrer-Policy: strict-origin-when-cross-origin  (×2)
+X-Frame-Options: SAMEORIGIN  (×2)
+X-Content-Type-Options: nosniff  (×2)</div>
+<p class="fix"><span class="lbl">Решение</span> Оставить источник заголовков один (либо Next.js, либо прокси). Согласовать единый HSTS max-age.</p>
+</div>
+
+<div class="card med">
+<div class="chd"><span class="num">6</span><span class="tag med">Средний</span><span class="ttl">Дубль JSON-LD Organization</span></div>
+<p>На главной блок <code>Organization</code> с <code>@id=#organization</code> выводится дважды (типы разметки: Organization, Organization, FinancialService, BreadcrumbList, FAQPage).</p>
+<p class="fix"><span class="lbl">Решение</span> Удалить дублирующийся Organization — оставить один на @id.</p>
+</div>
+
+<div class="card med">
+<div class="chd"><span class="num">7</span><span class="tag med">Средний</span><span class="ttl">Разнобой trailing slash в canonical / hreflang / sitemap</span></div>
+<p>Каноникализация даёт смешанные сигналы: canonical и часть hreflang — без слэша, sitemap и фактический URL — со слэшем.</p>
+<div class="ev">canonical (главная):   https://1kredit.kz      (без слэша)
+hreflang на /kk:        https://1kredit.kz      (без слэша)
+hreflang на главной:    https://1kredit.kz/     (со слэшем)
+sitemap.xml / факт:     https://1kredit.kz/     (со слэшем)</div>
+<p class="fix"><span class="lbl">Решение</span> Выбрать одну форму (рекомендуется со слэшем для корня) и привести canonical, hreflang, og:url, sitemap к ней единообразно.</p>
+</div>
+
+<h2>Низкие</h2>
+
+<div class="card low">
+<div class="chd"><span class="num">8</span><span class="tag low">Низкий</span><span class="ttl">Пустые/отсутствующие alt (11 из 16 изображений)</span></div>
+<p>Большинство без alt — декоративные SVG-иконки (<code>terms-icon-*.svg</code>, <code>about-icon-*.svg</code>). Для них корректно <code>alt=""</code>; контентные картинки должны иметь описательный alt.</p>
+<p class="fix"><span class="lbl">Решение</span> Декоративным иконкам — пустой <code>alt=""</code> (или фон CSS), содержательным изображениям — осмысленный alt.</p>
+</div>
+
+<div class="card low">
+<div class="chd"><span class="num">9</span><span class="tag low">Низкий</span><span class="ttl">BreadcrumbList на главной из одного элемента</span></div>
+<p>Хлебные крошки на главной содержат только «Главная». Проверить полноту цепочек на подстраницах.</p>
+<p class="fix"><span class="lbl">Решение</span> На внутренних страницах отдавать полную цепочку (Главная → Раздел → Страница).</p>
+</div>
+
+<h2>Что в порядке (без действий)</h2>
+<div class="card ok">
+<div class="chd"><span class="tag ok">OK</span><span class="ttl">Сильные стороны</span></div>
+<ul>
+<li><b>SSR работает</b> — Googlebot получает полный контент в исходном HTML (не зависит от JS).</li>
+<li><b>Core Web Vitals (полевые, CrUX 30.06.2026):</b> мобайл — 10 «хороших» URL, 0 проблемных.</li>
+<li><b>HTTPS:</b> 10/10 страниц, HSTS с preload, строгий CSP (nonce + strict-dynamic), X-Frame, nosniff.</li>
+<li><b>Редиректы:</b> http→https (308), www→non-www (301) настроены верно.</li>
+<li><b>Консоль браузера чистая</b> — JS-ошибок нет.</li>
+<li><b>robots.txt</b> корректен (закрыты /lp/, /admin/, /api/), объявлен sitemap.</li>
+<li><b>sitemap.xml</b> валиден: 14 URL с lastmod / changefreq / priority.</li>
+<li><b>hreflang</b> ru / kk / x-default присутствует и взаимен.</li>
+<li><b>Микроразметка:</b> FinancialService, FAQPage, Organization, BreadcrumbList.</li>
+</ul>
+</div>
+
+<h2>Приоритет исправления</h2>
+<table class="sum">
+<tr><th>Шаг</th><th>Действие</th><th>Эффект</th></tr>
+<tr><td>1</td><td>Отдавать 404/410 на несуществующие URL (п.1)</td><td>Останавливает рост index-мусора</td></tr>
+<tr><td>2</td><td>301 со старых WP-слагов на новые + 410 на WP-эндпоинты (п.2)</td><td>Возврат ссылочного веса, чистка индекса</td></tr>
+<tr><td>3</td><td>Оставить один H1 на главной (п.3)</td><td>Быстрый on-page выигрыш в релевантности</td></tr>
+<tr><td>4</td><td>og:image, единый trailing slash, дубли заголовков/JSON-LD (п.4–7)</td><td>Гигиена разметки и превью</td></tr>
+</table>
+
+<div class="foot">
+Аудит проведён напрямую через Chrome MCP (рендеринг страницы) с проверкой серверных ответов через curl и данных Google Search Console (Эффективность, Индексирование, Core Web Vitals, HTTPS). Данные GSC актуальны на дату выгрузки в отчёте (индексация — 12.06.2026, CWV/HTTPS — 30.06.2026).
+</div>
+
+</div>
+</body>
+</html>

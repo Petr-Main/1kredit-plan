@@ -182,7 +182,7 @@
 <li class="ok"><span class="mk">✓</span><div>Ключевое: <b>soft-404</b> (несуществующие URL отдают 200 вместо 404/410); <b>незавершённая миграция с WordPress</b> — старые URL не редиректятся; два <code>&lt;h1&gt;</code> на главной; нет <code>og:image</code>; дубль JSON-LD; разнобой trailing slash.</div></li>
 <li class="ok"><span class="mk">✓</span><div>Сверено с GSC: <b>в индексе 18 из 140</b> URL (62 noindex + 50 «просканировано, но не проиндексировано» + 10 редиректов) — причины неиндексации совпадают с пунктами аудита.</div></li>
 <li class="ok"><span class="mk">✓</span><div>В норме (без правок): полевые <b>Core Web Vitals</b> — мобайл 10/10, HTTPS 10/10, SSR отдаёт контент, консоль чистая.</div></li>
-<li class="ok"><span class="mk">✓</span><div>Артефакт: <a href="1kredit-tech-audit.html">1kredit-tech-audit.html</a>.</div></li>
+<li class="ok"><span class="mk">✓</span><div>Каталог ошибок собран — у каждой доказательство и решение.</div></li>
 </ul>
 </div>
 
@@ -198,7 +198,7 @@
 <ul class="facts">
 <li class="ok"><span class="mk">✓</span><div><b>Приоритет-1 (индексация).</b> Несуществующие URL теперь отдают <code>404</code>; старые WordPress-URL — <code>308</code> на новые (<code>/vacancies</code>→<code>/vakansii</code>, <code>/feedback</code>→<code>/kontakty</code>), мёртвые эндпоинты (<code>/index.php</code>, <code>/wp-admin/*</code>, <code>/submit-application</code>) — <code>410</code>; на главной один <code>&lt;h1&gt;</code>.</div></li>
 <li class="ok"><span class="mk">✓</span><div><b>Приоритет-2 (разметка).</b> Добавлены <code>og:image</code>/<code>twitter:image</code> (PNG); убран дубль JSON-LD <code>Organization</code>; canonical / hreflang / sitemap приведены к единому виду; проставлены <code>alt</code>; на подстраницах — полные хлебные крошки.</div></li>
-<li class="ok"><span class="mk">✓</span><div><b>Проверено: 8 из 8 пунктов закрыто.</b> Детали и «было/стало» — в отчёте <a href="1kredit-tech-audit.html">1kredit-tech-audit.html</a>.</div></li>
+<li class="ok"><span class="mk">✓</span><div><b>Проверено: 8 из 8 пунктов закрыто.</b> Все правки подтверждены на живом сайте.</div></li>
 <li class="wait"><span class="mk">~</span><div>Дальше — <b>переиндексация</b> затронутых URL в GSC и контроль в отчёте «Индексирование» (ожидаем схлопывание noindex-мусора и рост доли в индексе).</div></li>
 </ul>
 </div>
